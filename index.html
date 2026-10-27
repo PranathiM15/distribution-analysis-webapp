@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111b2b">
+  <meta name="description" content="Explore numerical data with histograms, summary statistics and distribution insights.">
+  <title>Distribution Studio · Data Lab</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="Distribution Studio home">
+        <span class="brand-mark"><span></span><span></span><span></span><span></span></span>
+        <span class="brand-copy"><strong>distribution<span>studio</span></strong><small>DATA LAB / 01</small></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <div class="side-nav active"><span class="nav-icon">▦</span><span>Distribution lab</span><span class="nav-dot"></span></div>
+      <div class="side-nav muted"><span class="nav-icon">⌁</span><span>Data preview</span></div>
+      <div class="side-nav muted"><span class="nav-icon">◷</span><span>Method notes</span></div>
+      <div class="sidebar-bottom">
+        <div class="local-card"><span class="local-status"></span><div><strong>Local workspace</strong><small>Your dataset stays on this computer</small></div></div>
+        <div class="sidebar-foot">PYTHON · PANDAS · MATPLOTLIB</div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="crumbs"><span>WORKSPACE</span><b>/</b><strong>Distribution analysis</strong></div>
+        <div class="topbar-right"><span class="live-pill"><i></i> ANALYSIS READY</span><span class="avatar">PM</span></div>
+      </header>
+
+      <section class="page-intro">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> TASK 27 <span class="eyebrow-sep">·</span> DATA EXPLORATION</div>
+          <h1>See how your data <em>behaves.</em></h1>
+          <p class="intro-text">Turn a numerical column into a histogram. Read the shape, measure the spread, and surface patterns worth investigating.</p>
+        </div>
+        <div class="intro-stamp"><span>01</span><div><strong>Distribution</strong><small>HISTOGRAM STUDY</small></div></div>
+      </section>
+
+      <section class="workspace-grid">
+        <section class="panel source-panel">
+          <div class="panel-heading"><div><span class="section-index">01</span><h2>Choose your dataset</h2></div><span class="panel-kicker">INPUT</span></div>
+          <p class="panel-subtitle">Upload a CSV or open the included student performance sample.</p>
+          <label class="dropzone" id="dropzone" for="csvFile">
+            <input id="csvFile" type="file" accept=".csv,text/csv">
+            <span class="upload-symbol">↑</span>
+            <strong>Drop your CSV file here</strong>
+            <span class="drop-hint">or <u>browse files</u> · CSV only</span>
+            <span class="drop-limit">MAX 10 MB</span>
+          </label>
+          <div class="file-row" id="fileRow"><span class="file-icon">CSV</span><div class="file-meta"><strong id="fileName">student_performance.csv</strong><small id="fileMeta">Sample data · waiting to load</small></div><span class="file-check" id="fileCheck">✓</span></div>
+          <button class="sample-button" id="sampleButton" type="button"><span>✳</span> Use sample dataset <span class="button-arrow">↗</span></button>
+          <div class="rule"></div>
+          <div class="field-label"><label for="columnSelect">NUMERICAL VARIABLE</label><span class="field-note">Choose one column</span></div>
+          <div class="select-wrap"><select id="columnSelect" disabled><option>Upload a dataset first</option></select><span class="select-chevron">⌄</span></div>
+          <div class="bin-label-row"><label for="binsRange">HISTOGRAM BINS</label><strong id="binsValue">10 bins</strong></div>
+          <input id="binsRange" class="bins-range" type="range" min="4" max="24" value="10" disabled>
+          <div class="range-labels"><span>4 · BROAD</span><span>24 · DETAILED</span></div>
+          <button class="analyze-button" id="analyzeButton" type="button" disabled><span>Generate analysis</span><span>↗</span></button>
+          <p class="form-status" id="formStatus" role="status">Loading the sample dataset…</p>
+        </section>
+
+        <div class="results-column">
+          <section class="panel summary-panel">
+            <div class="panel-heading results-heading"><div><span class="section-index">02</span><h2>At a glance</h2></div><span class="data-count" id="resultCount">NO DATA YET</span></div>
+            <div class="stats-grid" id="statsGrid">
+              <div class="empty-stat"><span>01 / VALID VALUES</span><strong>—</strong><small>Awaiting dataset</small></div>
+              <div class="empty-stat"><span>02 / MEAN</span><strong>—</strong><small>Arithmetic average</small></div>
+              <div class="empty-stat"><span>03 / MEDIAN</span><strong>—</strong><small>Middle value</small></div>
+              <div class="empty-stat"><span>04 / STD. DEVIATION</span><strong>—</strong><small>Sample spread</small></div>
+              <div class="empty-stat"><span>05 / RANGE</span><strong>—</strong><small>Minimum to maximum</small></div>
+              <div class="empty-stat"><span>06 / SKEWNESS</span><strong>—</strong><small>Distribution shape</small></div>
+            </div>
+          </section>
+
+          <section class="panel chart-panel">
+            <div class="panel-heading"><div><span class="section-index">03</span><h2>Frequency distribution</h2></div><span class="chart-chip">MATPLOTLIB</span></div>
+            <div class="chart-meta"><span id="chartSubtitle">Histogram will appear here after analysis</span><span class="chart-legend"><i class="legend-mean"></i> Mean <i class="legend-median"></i> Median</span></div>
+            <div class="chart-frame" id="chartFrame"><div class="chart-empty"><div class="mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><strong>Your histogram starts here</strong><span>Choose a variable and generate analysis.</span></div><img id="histogramImage" alt="Histogram of the selected numerical column" hidden></div>
+            <div class="chart-footer"><span><i class="footer-dot"></i> FREQUENCY BY VALUE INTERVAL</span><span id="chartBinLabel">— BINS</span></div>
+          </section>
+
+          <section class="panel insights-panel">
+            <div class="panel-heading"><div><span class="section-index">04</span><h2>What the data tells you</h2></div><span class="panel-kicker">OBSERVATIONS</span></div>
+            <div id="insightsList" class="insights-list"><div class="insight-placeholder"><span>✳</span><p>Three data-led observations will appear after you run your first analysis.</p></div></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="panel preview-panel">
+        <div class="panel-heading"><div><span class="section-index">05</span><h2>Data preview</h2></div><span class="panel-kicker" id="previewCount">FIRST 5 ROWS</span></div>
+        <p class="panel-subtitle">A quick check of the source rows used for the distribution.</p>
+        <div class="table-scroll"><table id="previewTable"><tbody><tr><td class="table-empty">Load a CSV to preview its rows.</td></tr></tbody></table></div>
+      </section>
+
+      <footer class="footer"><span>BUILT FOR TASK 27 <b>·</b> DISTRIBUTION ANALYSIS</span><span>PYTHON + PANDAS + MATPLOTLIB <i>●</i></span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
